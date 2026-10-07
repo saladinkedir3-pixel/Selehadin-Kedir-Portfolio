@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Play, X, Video, Smartphone, Palette, ArrowRight, Maximize2 } from 'lucide-react';
 import { VideoWork, VideoCategory } from '../types/portfolio';
-import { VIDEO_WORKS, GRAPHIC_WORKS } from '../data/portfolioData';
+import { VIDEO_WORKS, GRAPHIC_WORKS, extractYouTubeId, getYouTubeThumbnailUrl } from '../data/portfolioData';
 
 interface VideoShowcaseProps {
   onGoToGraphics?: () => void;
@@ -14,6 +14,10 @@ export const VideoShowcase: React.FC<VideoShowcaseProps> = ({ onGoToGraphics }) 
   const youtubeVideos = VIDEO_WORKS.filter((v) => v.category === 'youtube');
   const reelVideos = VIDEO_WORKS.filter((v) => v.category === 'reels_tiktok');
   const featuredGraphic = GRAPHIC_WORKS[0];
+
+  const getResolvedThumbnail = (video: VideoWork): string => {
+    return getYouTubeThumbnailUrl(video.videoUrl, video.youtubeId) || video.thumbnailUrl;
+  };
 
   return (
     <section className="py-12 bg-[#0b0714]">
@@ -78,10 +82,17 @@ export const VideoShowcase: React.FC<VideoShowcaseProps> = ({ onGoToGraphics }) 
                   {/* High-Visibility 16:9 Widescreen Video Frame */}
                   <div className="relative aspect-video w-full overflow-hidden bg-black">
                     <img
-                      src={video.thumbnailUrl}
+                      src={getResolvedThumbnail(video)}
                       alt={video.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        const fallback = getYouTubeThumbnailUrl(video.videoUrl, video.youtubeId);
+                        if (fallback && target.src !== fallback) {
+                          target.src = fallback;
+                        }
+                      }}
                     />
 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -150,10 +161,17 @@ export const VideoShowcase: React.FC<VideoShowcaseProps> = ({ onGoToGraphics }) 
                   {/* 9:16 Vertical Video Frame */}
                   <div className="relative aspect-[9/15] w-full overflow-hidden bg-black">
                     <img
-                      src={reel.thumbnailUrl}
+                      src={getResolvedThumbnail(reel)}
                       alt={reel.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        const fallback = getYouTubeThumbnailUrl(reel.videoUrl, reel.youtubeId);
+                        if (fallback && target.src !== fallback) {
+                          target.src = fallback;
+                        }
+                      }}
                     />
 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/40" />
@@ -295,7 +313,7 @@ export const VideoShowcase: React.FC<VideoShowcaseProps> = ({ onGoToGraphics }) 
               ) : (
                 <video
                   src={activeVideo.videoUrl}
-                  poster={activeVideo.thumbnailUrl}
+                  poster={getResolvedThumbnail(activeVideo)}
                   controls
                   autoPlay
                   playsInline

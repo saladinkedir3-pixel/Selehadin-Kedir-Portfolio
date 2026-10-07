@@ -1,5 +1,23 @@
 import { VideoWork, GraphicWork } from '../types/portfolio';
 
+export const extractYouTubeId = (url: string): string => {
+  if (!url) return '';
+  const shortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/);
+  if (shortsMatch) return shortsMatch[1];
+  const shortUrlMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+  if (shortUrlMatch) return shortUrlMatch[1];
+  const watchMatch = url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
+  if (watchMatch) return watchMatch[1];
+  const embedMatch = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
+  if (embedMatch) return embedMatch[1];
+  return '';
+};
+
+export const getYouTubeThumbnailUrl = (url: string, fallbackId?: string): string => {
+  const id = extractYouTubeId(url) || fallbackId || '';
+  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
+};
+
 export const VIDEO_WORKS: VideoWork[] = [
   {
     id: 'yt-quiet-grit-cant-figure-out',
@@ -9,7 +27,7 @@ export const VIDEO_WORKS: VideoWork[] = [
     categoryLabel: 'YouTube Video',
     duration: '08:42',
     aspectRatio: '16:9',
-    thumbnailUrl: '/src/assets/images/yt_quiet_grit_cant_figure_out.jpg',
+    thumbnailUrl: 'https://img.youtube.com/vi/FhXn_iBVZLQ/hqdefault.jpg',
     videoUrl: 'https://youtu.be/FhXn_iBVZLQ',
     youtubeId: 'FhXn_iBVZLQ',
     description: 'Psychological video essay edited with paced narrative hooks, dialogue enhancement, and atmospheric sound design.',
@@ -28,7 +46,7 @@ export const VIDEO_WORKS: VideoWork[] = [
     categoryLabel: 'YouTube Video',
     duration: '09:15',
     aspectRatio: '16:9',
-    thumbnailUrl: '/src/assets/images/yt_quiet_grit_never_waste_pain.jpg',
+    thumbnailUrl: 'https://img.youtube.com/vi/mza1qOfBBgo/hqdefault.jpg',
     videoUrl: 'https://youtu.be/mza1qOfBBgo',
     youtubeId: 'mza1qOfBBgo',
     description: 'Cinematic storytelling cut balancing dramatic music builds, archival visuals, and speech cadence.',
@@ -47,7 +65,7 @@ export const VIDEO_WORKS: VideoWork[] = [
     categoryLabel: 'YouTube Video',
     duration: '05:38',
     aspectRatio: '16:9',
-    thumbnailUrl: '/src/assets/images/yt_zkc_plays_audi_r8.jpg',
+    thumbnailUrl: 'https://img.youtube.com/vi/4ykRpuyFc7s/hqdefault.jpg',
     videoUrl: 'https://youtu.be/4ykRpuyFc7s',
     youtubeId: '4ykRpuyFc7s',
     description: 'Fast-paced gaming guide cut with audio transients, zooms, and high-energy tutorial pacing.',
@@ -66,7 +84,7 @@ export const VIDEO_WORKS: VideoWork[] = [
     categoryLabel: 'Reels / TikTok',
     duration: '00:44',
     aspectRatio: '9:16',
-    thumbnailUrl: '/src/assets/images/yt_shorts_habesha_dress.jpg',
+    thumbnailUrl: 'https://img.youtube.com/vi/qrYigRwjD9g/hqdefault.jpg',
     videoUrl: 'https://youtube.com/shorts/qrYigRwjD9g?feature=share',
     youtubeId: 'qrYigRwjD9g',
     description: 'Traditional Habesha scarves and gemstone jewelry commercial edit with rhythmic music sync and on-screen typography.',
@@ -85,7 +103,7 @@ export const VIDEO_WORKS: VideoWork[] = [
     categoryLabel: 'Reels / TikTok',
     duration: '00:41',
     aspectRatio: '9:16',
-    thumbnailUrl: '/src/assets/images/yt_shorts_tote_bag.jpg',
+    thumbnailUrl: 'https://img.youtube.com/vi/6MEyBKNMVLU/hqdefault.jpg',
     videoUrl: 'https://youtube.com/shorts/6MEyBKNMVLU?feature=share',
     youtubeId: '6MEyBKNMVLU',
     description: 'Commercial video cut for handcrafted tote bags with lifestyle storytelling, dialogue pacing, and branded end-tag CTA.',
