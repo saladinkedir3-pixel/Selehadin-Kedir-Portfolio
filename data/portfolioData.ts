@@ -113,6 +113,25 @@ export const VIDEO_WORKS: VideoWork[] = [
       'Brand end-card animation'
     ],
     software: ['Premiere Pro', 'After Effects']
+  },
+  {
+    id: 'yt-short-scm-edit-01',
+    title: 'SCM edit 01',
+    clientOrChannel: 'SK crd',
+    category: 'reels_tiktok',
+    categoryLabel: 'Reels / TikTok',
+    duration: '00:30',
+    aspectRatio: '9:16',
+    thumbnailUrl: 'https://img.youtube.com/vi/GvN2q8xZ4F0/hqdefault.jpg',
+    videoUrl: 'https://youtube.com/shorts/GvN2q8xZ4F0?feature=share',
+    youtubeId: 'GvN2q8xZ4F0',
+    description: 'Dynamic short-form reel edit featuring rhythmic beat cuts, motion pacing, and visual transitions.',
+    editingHighlights: [
+      'Paced music synchronization',
+      'High-impact visual transitions',
+      'Dynamic speed ramps'
+    ],
+    software: ['Premiere Pro', 'After Effects']
   }
 ];
 

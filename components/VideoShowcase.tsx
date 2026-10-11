@@ -146,13 +146,13 @@ export const VideoShowcase: React.FC<VideoShowcaseProps> = ({ onGoToGraphics }) 
             {filter === 'all' && (
               <div className="flex items-center gap-2 text-xs font-mono text-purple-400 uppercase tracking-wider pb-2 border-b border-purple-900/30">
                 <Smartphone className="w-4 h-4" />
-                <span>TikTok Videos</span>
+                <span>Shorts &amp; Reels</span>
               </div>
             )}
 
-            {/* Exactly 2 TikTok videos side by side */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
-              {reelVideos.slice(0, 2).map((reel) => (
+            {/* Vertical Video Cards (Shorts & Reels) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {reelVideos.map((reel) => (
                 <div
                   key={reel.id}
                   onClick={() => setActiveVideo(reel)}
@@ -187,7 +187,7 @@ export const VideoShowcase: React.FC<VideoShowcaseProps> = ({ onGoToGraphics }) 
                     <div className="absolute top-3 left-3 right-3 flex items-center justify-between text-xs font-mono text-zinc-300 pointer-events-none">
                       <span className="bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-md border border-purple-800/40 text-[11px] text-purple-300 font-semibold flex items-center gap-1">
                         <Smartphone className="w-3 h-3" />
-                        <span>TikTok Ad</span>
+                        <span>Short / Reel</span>
                       </span>
                       <span className="bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10 text-[11px] tabular-nums text-zinc-200">
                         {reel.duration}
@@ -198,7 +198,7 @@ export const VideoShowcase: React.FC<VideoShowcaseProps> = ({ onGoToGraphics }) 
                   {/* Clean Reel Info */}
                   <div className="p-4 sm:p-5 space-y-2">
                     <div className="text-[11px] font-mono text-zinc-400">
-                      {reel.clientOrChannel} · TikTok Video
+                      {reel.clientOrChannel} · Short / Reel
                     </div>
                     <h3 className="text-base sm:text-lg font-bold font-display text-white group-hover:text-purple-300 transition-colors">
                       {reel.title}
